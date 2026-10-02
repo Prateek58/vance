@@ -28,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}>
-      <body className="min-h-full flex flex-col bg-darkBody text-white selection:bg-primary selection:text-black">
+    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}>
+      <body suppressHydrationWarning className="min-h-full flex flex-col bg-darkBody text-white selection:bg-primary selection:text-black">
         {children}
       </body>
     </html>
