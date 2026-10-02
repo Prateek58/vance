@@ -42,3 +42,41 @@ a, button, [role="button"], select, label[for] {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Lightweight Scroll Reveal Utilities */
+.reveal-init {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-fade-up {
+  transform: translateY(28px);
+}
+
+.reveal-fade-down {
+  transform: translateY(-28px);
+}
+
+.reveal-slide-left {
+  transform: translateX(-30px);
+}
+
+.reveal-slide-right {
+  transform: translateX(30px);
+}
+
+.reveal-zoom-in {
+  transform: scale(0.95);
+}
+
+.reveal-fade-in {
+  transform: translateY(0);
+}
+
+.reveal-active {
+  opacity: 1 !important;
+  transform: translateY(0) translateX(0) scale(1) !important;
+}
+
