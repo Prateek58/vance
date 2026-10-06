@@ -7,12 +7,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Company Info */}
           <div className="space-y-4 md:col-span-1">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-block group">
               <img
                 src="/logo.svg"
                 alt="Vance IT Solutions"
-                className="h-14 sm:h-16 w-auto object-contain"
+                className="h-12 sm:h-14 w-auto object-contain transition-transform group-hover:scale-105"
               />
+              <span className="text-xs tracking-tight font-medium text-primary block mt-1">
+                Empowering your Tech Journey
+              </span>
             </Link>
             <p className="text-xs text-gray-400 leading-relaxed">
               Boutique precision, enterprise scale, AI-accelerated delivery. Connecting ambitious organizations with elite tech talent and digital solution capabilities.

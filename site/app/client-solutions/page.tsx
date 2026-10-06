@@ -22,7 +22,7 @@ export default function ClientSolutions() {
         <section className="relative pt-12 pb-16 bg-gradient-to-b from-black/60 to-darkBody border-b border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider">
-              Page 2.0 • Client Solutions & Service Directory
+              Client Solutions & Service Directory
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
               Engineering Teams & Digital Solutions,{' '}
@@ -36,10 +36,10 @@ export default function ClientSolutions() {
           </div>
         </section>
 
-        {/* 2.1 AI-Augmented Technical Staffing */}
+        {/* AI-Augmented Technical Staffing */}
         <section id="staffing" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 border-b border-white/10">
           <div className="space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-primary">Service Pillar 2.1</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Technical Staffing</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Technical Staffing & Talent Acquisition</h2>
             <p className="text-gray-400 text-sm max-w-2xl">
               Rapid deployment of pre-vetted engineers across flexible engagement models.
@@ -122,10 +122,10 @@ export default function ClientSolutions() {
           </div>
         </section>
 
-        {/* 2.2 IT Consulting & Workforce Advisory */}
+        {/* IT Consulting & Workforce Advisory */}
         <section id="consulting" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 border-b border-white/10">
           <div className="space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-secondary">Service Pillar 2.2</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-secondary">Consulting & Advisory</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">IT Consulting & Workforce Advisory</h2>
             <p className="text-gray-400 text-sm">
               Strategic Guidance to Scale Modern Engineering.
@@ -154,10 +154,10 @@ export default function ClientSolutions() {
           </div>
         </section>
 
-        {/* 2.3 Custom Web & Enterprise Software Development */}
+        {/* Custom Web & Enterprise Software Development */}
         <section id="web-dev" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 border-b border-white/10">
           <div className="space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-primary">Service Pillar 2.3</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Custom Development</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Custom Web & Enterprise Software Development</h2>
             <p className="text-gray-400 text-sm">
               Digital Products Built for Performance, Longevity, and Scale.
@@ -186,10 +186,10 @@ export default function ClientSolutions() {
           </div>
         </section>
 
-        {/* 2.4 Digital Marketing & Technical SEO */}
+        {/* Digital Marketing & Technical SEO */}
         <section id="seo" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-secondary">Service Pillar 2.4</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-secondary">Digital Marketing & SEO</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Digital Marketing & Technical SEO</h2>
             <p className="text-gray-400 text-sm">
               High-Authority Digital Footprints Built on Data.

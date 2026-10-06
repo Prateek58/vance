@@ -214,7 +214,11 @@ export default function Home() {
             <ScrollReveal variant="fade-up" delay={100} className="h-full">
               <div className="p-6 rounded-xl bg-black/40 border border-white/10 hover:border-primary/40 transition space-y-4 flex flex-col justify-between h-full">
                 <div className="space-y-3">
-                  <div className="text-primary text-xl font-bold">01.</div>
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                    </svg>
+                  </div>
                   <h4 className="text-lg font-bold text-white">AI-Enhanced Technical Staffing</h4>
                   <p className="text-xs text-gray-400 leading-relaxed">
                     Temp, Contract-to-Hire, Direct Placement. We leverage cutting-edge AI talent intelligence tools alongside deep industry sourcing networks to surface passive, high-caliber tech talent in record time.
@@ -230,7 +234,11 @@ export default function Home() {
             <ScrollReveal variant="fade-up" delay={200} className="h-full">
               <div className="p-6 rounded-xl bg-black/40 border border-white/10 hover:border-secondary/40 transition space-y-4 flex flex-col justify-between h-full">
                 <div className="space-y-3">
-                  <div className="text-secondary text-xl font-bold">02.</div>
+                  <div className="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                    </svg>
+                  </div>
                   <h4 className="text-lg font-bold text-white">IT Consulting & Architecture</h4>
                   <p className="text-xs text-gray-400 leading-relaxed">
                     Modernization roadmaps, cloud readiness, tech stack evaluation, and team topology consulting to guarantee your engineering investments yield tangible business throughput.
@@ -246,7 +254,11 @@ export default function Home() {
             <ScrollReveal variant="fade-up" delay={300} className="h-full">
               <div className="p-6 rounded-xl bg-black/40 border border-white/10 hover:border-primary/40 transition space-y-4 flex flex-col justify-between h-full">
                 <div className="space-y-3">
-                  <div className="text-primary text-xl font-bold">03.</div>
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                      <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                    </svg>
+                  </div>
                   <h4 className="text-lg font-bold text-white">Custom Web & App Development</h4>
                   <p className="text-xs text-gray-400 leading-relaxed">
                     Bespoke enterprise portals, responsive web platforms, and API integrations built with modern engineering practices (React, Node, WordPress headless/monolithic, Python) designed for security and scalability.
@@ -262,7 +274,11 @@ export default function Home() {
             <ScrollReveal variant="fade-up" delay={400} className="h-full">
               <div className="p-6 rounded-xl bg-black/40 border border-white/10 hover:border-secondary/40 transition space-y-4 flex flex-col justify-between h-full">
                 <div className="space-y-3">
-                  <div className="text-secondary text-xl font-bold">04.</div>
+                  <div className="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
+                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                      <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                    </svg>
+                  </div>
                   <h4 className="text-lg font-bold text-white">Digital Marketing & SEO</h4>
                   <p className="text-xs text-gray-400 leading-relaxed">
                     Data-driven acquisition engines. We diagnose infrastructure bottlenecks, execute enterprise search optimization, and optimize conversion funnels so your digital assets command search market share.

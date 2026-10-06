@@ -19,12 +19,15 @@ export default function Navbar({ onOpenClientForm, onOpenCandidateForm }: Navbar
     <header className="sticky top-0 z-50 backdrop-blur-md bg-darkBody/90 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center group shrink-0">
+        <Link href="/" className="flex flex-col justify-center group shrink-0">
           <img
             src="/logo.svg"
             alt="Vance IT Solutions"
-            className="h-10 sm:h-12 lg:h-14 w-auto max-w-[180px] sm:max-w-[220px] lg:max-w-[260px] object-contain transition-transform group-hover:scale-105"
+            className="h-8 sm:h-10 lg:h-12 w-auto max-w-[160px] sm:max-w-[200px] lg:max-w-[240px] object-contain transition-transform group-hover:scale-105"
           />
+          <span className="text-[9px] sm:text-[10px] tracking-tight font-medium text-gray-400 group-hover:text-primary transition-colors leading-none mt-0.5">
+            Empowering your Tech Journey
+          </span>
         </Link>
 
         {/* Desktop Navigation Links */}

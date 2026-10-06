@@ -25,7 +25,7 @@ export default function ContactPage() {
         <section className="relative pt-12 pb-16 bg-gradient-to-b from-black/60 to-darkBody border-b border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider">
-              Page 5.0 • Contact & Discovery Consultation
+              Contact & Discovery Consultation
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
               Have a Critical Role or Project Deadline?{' '}

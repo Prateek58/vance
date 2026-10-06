@@ -148,7 +148,7 @@ export default function CandidateHub() {
         <section className="relative pt-12 pb-16 bg-gradient-to-b from-black/70 to-darkBody border-b border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-secondary/30 bg-secondary/10 text-secondary text-xs font-semibold uppercase tracking-wider">
-              Page 3.0 • Candidate Hub & Developer Portal
+              Candidate Hub & Developer Portal
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
               Step Into Your Next{' '}
@@ -162,11 +162,11 @@ export default function CandidateHub() {
           </div>
         </section>
 
-        {/* 3.1 Active Opportunities & Filterable Job Board */}
+        {/* Active Opportunities & Filterable Job Board */}
         <section id="jobs" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 border-b border-white/10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="space-y-2">
-              <span className="text-xs font-bold uppercase tracking-widest text-secondary">Section 3.1</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-secondary">Active Opportunities</span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Active Opportunities & Job Board</h2>
               <p className="text-xs sm:text-sm text-gray-400">
                 Real-time searchable roles across premier enterprise technology teams.
@@ -202,10 +202,15 @@ export default function CandidateHub() {
                 >
                   <option value="All">All Disciplines</option>
                   <option value="Cloud">Cloud & DevOps</option>
-                  <option value="Full Stack">Full Stack</option>
+                  <option value="Full Stack">Full Stack / Web</option>
                   <option value="Data/AI">Data & AI/ML</option>
-                  <option value="Backend">Backend</option>
+                  <option value="Backend">Backend Development</option>
+                  <option value="Networking">Networking & Infrastructure</option>
+                  <option value="Cybersecurity">Cybersecurity & InfoSec</option>
+                  <option value="ERP">ERP & Enterprise Systems</option>
+                  <option value="Mobile">Mobile Development</option>
                   <option value="Product">SEO & Product</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
 
@@ -331,10 +336,10 @@ export default function CandidateHub() {
           </div>
         </section>
 
-        {/* 3.2 Fast-Track Candidate Drop Form */}
+        {/* Fast-Track Candidate Drop Form */}
         <section id="fast-track" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 border-b border-white/10">
           <div className="max-w-3xl mx-auto text-center space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-secondary">Section 3.2</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-secondary">Candidate Registration</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Fast-Track Candidate Profile Drop</h2>
             <p className="text-gray-300 text-sm">
               Don&apos;t see a matching role listed above? Submit your details directly into our talent network for immediate evaluation on upcoming contracts.
@@ -346,10 +351,10 @@ export default function CandidateHub() {
           </div>
         </section>
 
-        {/* 3.3 Contractor & Onboarding Protocol */}
+        {/* Contractor & Onboarding Protocol */}
         <section id="contractor-protocol" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-primary">Section 3.3</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Onboarding Protocol</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Contractor & Onboarding Protocol</h2>
             <p className="text-gray-400 text-sm max-w-2xl">
               Transparent terms, predictable payment cycles, and dedicated recruiter support.
