@@ -21,6 +21,13 @@ export async function POST(req: Request) {
 
     const type = data.type;
     
+    // HONEYPOT: If the invisible faxNumber field is filled, it's a bot.
+    if (data.faxNumber && data.faxNumber.trim() !== '') {
+      console.log('Bot detected via honeypot field. Dropping request.');
+      // Return 200 OK so the bot thinks it succeeded and doesn't adapt
+      return NextResponse.json({ success: true, message: 'Email sent successfully!' });
+    }
+    
     // 1. Basic File Size Validation
     if (file && file.size > MAX_FILE_SIZE) {
       return NextResponse.json({ success: false, error: 'File size exceeds the 5MB limit.' }, { status: 400 });

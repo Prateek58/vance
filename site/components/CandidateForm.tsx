@@ -74,6 +74,7 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
     linkedinUrl: '',
     githubUrl: '',
     targetRole: initialJobTitle,
+    faxNumber: '', // Honeypot field
   });
 
   useEffect(() => {
@@ -84,6 +85,12 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!/^\d{10}$/.test(formData.phone)) {
+      setErrorMsg('Phone number must be exactly 10 digits.');
+      return;
+    }
+    
     setErrorMsg('');
     setIsSubmitting(true);
     
@@ -135,7 +142,25 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
         </p>
         <button
           type="button"
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false);
+            setErrorMsg('');
+            setFile(null);
+            setCustomCode('');
+            setFormData({
+              fullName: '',
+              email: '',
+              countryCode: '+1',
+              phone: '',
+              discipline: 'Full-Stack / Web Development',
+              workModel: 'W2',
+              targetRate: '',
+              linkedinUrl: '',
+              githubUrl: '',
+              targetRole: initialJobTitle,
+              faxNumber: '',
+            });
+          }}
           className="mt-2 px-5 py-2 text-xs font-bold bg-secondary/20 text-secondary border border-secondary/40 rounded-lg hover:bg-secondary/30 transition cursor-pointer"
         >
           Submit Another Profile
@@ -146,6 +171,20 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
 
   return (
     <form onSubmit={handleSubmit} className={`space-y-4 text-sm ${className}`}>
+      {/* Honeypot Field - Invisible to Real Users */}
+      <div style={{ display: 'none' }} aria-hidden="true">
+        <label htmlFor="faxNumber">Fax Number (Leave this blank)</label>
+        <input
+          type="text"
+          id="faxNumber"
+          name="faxNumber"
+          tabIndex={-1}
+          autoComplete="off"
+          value={formData.faxNumber}
+          onChange={(e) => setFormData({ ...formData, faxNumber: e.target.value })}
+        />
+      </div>
+
       {errorMsg && (
         <div className="p-3 rounded-lg bg-red-900/40 border border-red-500/50 text-red-200 text-xs font-semibold">
           {errorMsg}
@@ -212,9 +251,14 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
             <input
               type="tel"
               required
+              maxLength={10}
+              pattern="\d{10}"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              placeholder="(555) 000-0000"
+              onChange={(e) => {
+                const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                setFormData({ ...formData, phone: val });
+              }}
+              placeholder="1234567890"
               className="w-full bg-black/50 border border-white/15 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-secondary text-xs"
             />
           </div>
