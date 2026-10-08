@@ -59,6 +59,9 @@ const COUNTRY_CODES = [
 
 export default function CandidateForm({ onSuccess, initialJobTitle = '', className = '' }: CandidateFormProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [file, setFile] = useState<File | null>(null);
   const [customCode, setCustomCode] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
@@ -79,10 +82,45 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
     }
   }, [initialJobTitle]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    if (onSuccess) onSuccess();
+    setErrorMsg('');
+    setIsSubmitting(true);
+    
+    try {
+      if (file && file.size > 5 * 1024 * 1024) {
+        setErrorMsg('Resume file size must be under 5MB.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      const payload = new FormData();
+      payload.append('type', 'candidate');
+      Object.entries(formData).forEach(([key, value]) => {
+        payload.append(key, value);
+      });
+      if (file) {
+        payload.append('resume', file);
+      }
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: payload, // Do not set Content-Type header for FormData
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        setSubmitted(true);
+        if (onSuccess) onSuccess();
+      } else {
+        setErrorMsg(result.error || 'Failed to send request. Please try again.');
+      }
+    } catch (err) {
+      setErrorMsg('An error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -108,6 +146,12 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
 
   return (
     <form onSubmit={handleSubmit} className={`space-y-4 text-sm ${className}`}>
+      {errorMsg && (
+        <div className="p-3 rounded-lg bg-red-900/40 border border-red-500/50 text-red-200 text-xs font-semibold">
+          {errorMsg}
+        </div>
+      )}
+
       {formData.targetRole && (
         <div className="p-3 rounded-lg bg-secondary/10 border border-secondary/30 text-xs text-secondary font-semibold">
           Applying for Position: {formData.targetRole}
@@ -252,6 +296,7 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
           type="file"
           required
           accept=".pdf,.docx,.doc"
+          onChange={(e) => setFile(e.target.files?.[0] || null)}
           className="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-secondary/20 file:text-secondary hover:file:bg-secondary/30 border border-white/15 rounded-lg bg-black/50"
         />
       </div>
@@ -259,9 +304,10 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
       <div className="pt-2">
         <button
           type="submit"
-          className="w-full py-3 bg-gradient-to-r from-secondary to-primary text-black font-extrabold rounded-lg hover:opacity-90 transition shadow-md shadow-secondary/20 text-xs tracking-wide cursor-pointer"
+          disabled={isSubmitting}
+          className="w-full py-3 bg-gradient-to-r from-secondary to-primary text-black font-extrabold rounded-lg hover:opacity-90 transition shadow-md shadow-secondary/20 text-xs tracking-wide cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Fast-Track Resume & Profile Submission
+          {isSubmitting ? 'Submitting...' : 'Fast-Track Resume & Profile Submission'}
         </button>
       </div>
     </form>

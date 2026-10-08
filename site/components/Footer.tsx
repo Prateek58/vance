@@ -30,7 +30,7 @@ export default function Footer() {
           <div className="space-y-3">
             <h4 className="text-white font-semibold text-sm tracking-wider uppercase">Client Solutions</h4>
             <ul className="space-y-2 text-xs">
-              <li>
+              <li>``
                 <Link href="/client-solutions#staffing" className="hover:text-primary transition-colors">
                   AI Technical Staffing
                 </Link>

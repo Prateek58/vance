@@ -25,7 +25,7 @@ export default function ClientFormModal({ isOpen, onClose }: ClientFormModalProp
           <span className="text-xs font-semibold uppercase tracking-wider text-primary">Enterprise Client Intake</span>
           <h2 className="text-2xl font-extrabold text-white mt-1">Request Talent / Build Your Team</h2>
           <p className="text-xs text-gray-400 mt-1">
-            Tell us about your technical requirements and timeline. We respond within 2 hours.
+            Tell us about your technical requirements and timeline. Our team will review and respond shortly.
           </p>
         </div>
 

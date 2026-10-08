@@ -58,6 +58,7 @@ const COUNTRY_CODES = [
 
 export default function ClientForm({ onSuccess, className = '' }: ClientFormProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [customCode, setCustomCode] = useState('');
   const [formData, setFormData] = useState({
@@ -79,15 +80,40 @@ export default function ClientForm({ onSuccess, className = '' }: ClientFormProp
 
   const wordCount = getWordCount(formData.techStack);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (wordCount < 50 || wordCount > 1000) {
       setErrorMsg(`Please enter between 50 and 1000 words in the details field (current: ${wordCount} words).`);
       return;
     }
     setErrorMsg('');
-    setSubmitted(true);
-    if (onSuccess) onSuccess();
+    setIsSubmitting(true);
+    
+    try {
+      const payload = new FormData();
+      payload.append('type', 'client');
+      Object.entries(formData).forEach(([key, value]) => {
+        payload.append(key, value);
+      });
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: payload, // Browser sets multipart/form-data headers automatically
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        setSubmitted(true);
+        if (onSuccess) onSuccess();
+      } else {
+        setErrorMsg(result.error || 'Failed to send request. Please try again.');
+      }
+    } catch (err) {
+      setErrorMsg('An error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -99,7 +125,7 @@ export default function ClientForm({ onSuccess, className = '' }: ClientFormProp
           </div>
           <h3 className="text-xl font-bold text-white">Talent Request Received</h3>
           <p className="text-gray-300 max-w-md mx-auto text-xs sm:text-sm leading-relaxed">
-            Thank you, <span className="text-white font-medium">{formData.managerName || 'Hiring Leader'}</span>. A senior technical strategist from Vance IT Solutions will contact you at <span className="text-primary font-medium">{formData.email}</span> within 2 hours.
+            Thank you, <span className="text-white font-medium">{formData.managerName || 'Hiring Leader'}</span>. A senior technical strategist from Vance IT Solutions will contact you at <span className="text-primary font-medium">{formData.email}</span> shortly.
           </p>
           <button
             type="button"
@@ -265,9 +291,10 @@ export default function ClientForm({ onSuccess, className = '' }: ClientFormProp
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full py-3 bg-gradient-to-r from-primary to-secondary text-black font-extrabold rounded-lg hover:opacity-90 transition shadow-md shadow-primary/20 text-xs tracking-wide cursor-pointer"
+              disabled={isSubmitting}
+              className="w-full py-3 bg-gradient-to-r from-primary to-secondary text-black font-extrabold rounded-lg hover:opacity-90 transition shadow-md shadow-primary/20 text-xs tracking-wide cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Submit Enterprise Talent Request
+              {isSubmitting ? 'Submitting...' : 'Submit Enterprise Talent Request'}
             </button>
           </div>
         </form>
