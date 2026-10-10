@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CandidateForm from '../../components/CandidateForm';
@@ -8,6 +8,7 @@ import CandidateFormModal from '../../components/CandidateFormModal';
 import ClientFormModal from '../../components/ClientFormModal';
 import BookCallModal from '../../components/BookCallModal';
 import FloatingBookCallButton from '../../components/FloatingBookCallButton';
+import LinkedInShareModal from '../../components/LinkedInShareModal';
 
 interface JobPosting {
   id: string;
@@ -109,6 +110,8 @@ export default function CandidateHub() {
   const [isClientModalOpen, setIsClientModalOpen] = useState(false);
   const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false);
   const [isBookCallModalOpen, setIsBookCallModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [selectedJobForShare, setSelectedJobForShare] = useState<JobPosting | null>(null);
   const [selectedJobTitle, setSelectedJobTitle] = useState('');
   const [expandedJobId, setExpandedJobId] = useState<string | null>('job-1');
 
@@ -117,6 +120,22 @@ export default function CandidateHub() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedLocation, setSelectedLocation] = useState('All');
   const [selectedType, setSelectedType] = useState('All');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const targetJob = params.get('job');
+      if (targetJob) {
+        setExpandedJobId(targetJob);
+        setTimeout(() => {
+          const el = document.getElementById(targetJob);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 200);
+      }
+    }
+  }, []);
 
   const filteredJobs = SAMPLE_JOBS.filter((job) => {
     const matchesSearch =
@@ -134,6 +153,11 @@ export default function CandidateHub() {
   const handleApplyClick = (jobTitle: string) => {
     setSelectedJobTitle(jobTitle);
     setIsCandidateModalOpen(true);
+  };
+
+  const handleShareClick = (job: JobPosting) => {
+    setSelectedJobForShare(job);
+    setIsShareModalOpen(true);
   };
 
   return (
@@ -262,6 +286,7 @@ export default function CandidateHub() {
                 return (
                   <div
                     key={job.id}
+                    id={job.id}
                     className="p-6 rounded-2xl bg-black/40 border border-white/10 hover:border-secondary/40 transition duration-200 space-y-4"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -278,7 +303,17 @@ export default function CandidateHub() {
                         <h3 className="text-xl font-bold text-white">{job.title}</h3>
                       </div>
 
-                      <div className="flex items-center gap-3 shrink-0">
+                      <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                        <button
+                          onClick={() => handleShareClick(job)}
+                          title="Share this job on LinkedIn"
+                          className="px-3 py-2 text-xs font-semibold bg-[#0A66C2]/15 hover:bg-[#0A66C2]/30 text-[#70B5F9] border border-[#0A66C2]/40 rounded-lg transition cursor-pointer flex items-center gap-1.5"
+                        >
+                          <svg className="w-3.5 h-3.5 fill-current text-[#0A66C2]" viewBox="0 0 24 24">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.78a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26Z" />
+                          </svg>
+                          <span>Share</span>
+                        </button>
                         <button
                           onClick={() => setExpandedJobId(isExpanded ? null : job.id)}
                           className="px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white border border-white/15 rounded-lg transition cursor-pointer"
@@ -322,14 +357,25 @@ export default function CandidateHub() {
                           </ul>
                         </div>
 
-                        <div className="pt-2 flex justify-between items-center border-t border-white/10">
+                        <div className="pt-2 flex flex-wrap justify-between items-center gap-3 border-t border-white/10">
                           <span className="text-gray-400 text-[11px]">Direct Candidate Screening • Zero Automation Dumps</span>
-                          <button
-                            onClick={() => handleApplyClick(job.title)}
-                            className="px-4 py-2 text-xs font-bold bg-secondary text-black rounded-lg hover:bg-secondary/80 transition cursor-pointer"
-                          >
-                            Apply for {job.title}
-                          </button>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleShareClick(job)}
+                              className="px-3.5 py-2 text-xs font-semibold text-[#70B5F9] bg-[#0A66C2]/15 hover:bg-[#0A66C2]/30 border border-[#0A66C2]/30 rounded-lg transition cursor-pointer flex items-center gap-1.5"
+                            >
+                              <svg className="w-3.5 h-3.5 fill-current text-[#0A66C2]" viewBox="0 0 24 24">
+                                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.78a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26Z" />
+                              </svg>
+                              <span>Share on LinkedIn</span>
+                            </button>
+                            <button
+                              onClick={() => handleApplyClick(job.title)}
+                              className="px-4 py-2 text-xs font-bold bg-secondary text-black rounded-lg hover:bg-secondary/80 transition cursor-pointer"
+                            >
+                              Apply for {job.title}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -399,6 +445,11 @@ export default function CandidateHub() {
         initialJobTitle={selectedJobTitle}
       />
       <BookCallModal isOpen={isBookCallModalOpen} onClose={() => setIsBookCallModalOpen(false)} />
+      <LinkedInShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        job={selectedJobForShare}
+      />
 
       <FloatingBookCallButton onOpenBookCall={() => setIsBookCallModalOpen(true)} />
     </div>
