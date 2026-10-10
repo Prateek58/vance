@@ -5,19 +5,24 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ClientForm from '../../components/ClientForm';
 import CandidateForm from '../../components/CandidateForm';
+import BookCallForm from '../../components/BookCallForm';
 import ClientFormModal from '../../components/ClientFormModal';
 import CandidateFormModal from '../../components/CandidateFormModal';
+import BookCallModal from '../../components/BookCallModal';
+import FloatingBookCallButton from '../../components/FloatingBookCallButton';
 
 export default function ContactPage() {
-  const [activeTab, setActiveTab] = useState<'client' | 'candidate'>('client');
+  const [activeTab, setActiveTab] = useState<'client' | 'candidate' | 'booking'>('booking');
   const [isClientModalOpen, setIsClientModalOpen] = useState(false);
   const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false);
+  const [isBookCallModalOpen, setIsBookCallModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-darkBody text-white flex flex-col font-sans selection:bg-primary selection:text-black">
       <Navbar
         onOpenClientForm={() => setIsClientModalOpen(true)}
         onOpenCandidateForm={() => setIsCandidateModalOpen(true)}
+        onOpenBookCall={() => setIsBookCallModalOpen(true)}
       />
 
       <main className="flex-grow">
@@ -88,32 +93,52 @@ export default function ContactPage() {
               </div>
 
               {/* Tab Selector Buttons */}
-              <div className="flex bg-darkBody p-1 rounded-xl border border-white/15">
+              <div className="flex bg-darkBody p-1 rounded-xl border border-white/15 flex-wrap gap-1">
+                <button
+                  onClick={() => setActiveTab('booking')}
+                  className={`px-4 py-2 text-xs font-extrabold rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
+                    activeTab === 'booking'
+                      ? 'bg-gradient-to-r from-primary to-secondary text-black shadow-md'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/>
+                  </svg>
+                  Book a Call
+                </button>
                 <button
                   onClick={() => setActiveTab('client')}
-                  className={`px-5 py-2 text-xs font-extrabold rounded-lg transition cursor-pointer ${
+                  className={`px-4 py-2 text-xs font-extrabold rounded-lg transition cursor-pointer ${
                     activeTab === 'client'
                       ? 'bg-gradient-to-r from-primary to-secondary text-black shadow-md'
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  Enterprise Client Intake
+                  Client Intake
                 </button>
                 <button
                   onClick={() => setActiveTab('candidate')}
-                  className={`px-5 py-2 text-xs font-extrabold rounded-lg transition cursor-pointer ${
+                  className={`px-4 py-2 text-xs font-extrabold rounded-lg transition cursor-pointer ${
                     activeTab === 'candidate'
                       ? 'bg-gradient-to-r from-secondary to-primary text-black shadow-md'
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  Candidate Profile Drop
+                  Candidate Drop
                 </button>
               </div>
             </div>
 
             {/* Render Selected Form */}
-            {activeTab === 'client' ? (
+            {activeTab === 'booking' ? (
+              <div className="space-y-4">
+                <div className="text-xs text-primary font-semibold flex items-center gap-2">
+                  <span>📅</span> Book a Teams Call (Integrated with mail@vanceitsolutions.com)
+                </div>
+                <BookCallForm onSuccess={() => {}} />
+              </div>
+            ) : activeTab === 'client' ? (
               <div className="space-y-4">
                 <div className="text-xs text-primary font-semibold">
                   A. Enterprise Client Talent Request Form
@@ -136,6 +161,9 @@ export default function ContactPage() {
 
       <ClientFormModal isOpen={isClientModalOpen} onClose={() => setIsClientModalOpen(false)} />
       <CandidateFormModal isOpen={isCandidateModalOpen} onClose={() => setIsCandidateModalOpen(false)} />
+      <BookCallModal isOpen={isBookCallModalOpen} onClose={() => setIsBookCallModalOpen(false)} />
+
+      <FloatingBookCallButton onOpenBookCall={() => setIsBookCallModalOpen(true)} />
     </div>
   );
 }

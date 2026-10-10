@@ -8,11 +8,14 @@ import PolyAnimation from '../components/PolyAnimation';
 import MarqueeTicker from '../components/MarqueeTicker';
 import ClientFormModal from '../components/ClientFormModal';
 import CandidateFormModal from '../components/CandidateFormModal';
+import BookCallModal from '../components/BookCallModal';
+import FloatingBookCallButton from '../components/FloatingBookCallButton';
 import ScrollReveal from '../components/ScrollReveal';
 
 export default function Home() {
   const [isClientModalOpen, setIsClientModalOpen] = useState(false);
   const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false);
+  const [isBookCallModalOpen, setIsBookCallModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-darkBody text-white flex flex-col font-sans selection:bg-primary selection:text-black">
@@ -20,6 +23,7 @@ export default function Home() {
       <Navbar
         onOpenClientForm={() => setIsClientModalOpen(true)}
         onOpenCandidateForm={() => setIsCandidateModalOpen(true)}
+        onOpenBookCall={() => setIsBookCallModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -380,7 +384,7 @@ export default function Home() {
 
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
                 <button
-                  onClick={() => setIsClientModalOpen(true)}
+                  onClick={() => setIsBookCallModalOpen(true)}
                   className="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-black font-extrabold rounded-xl hover:opacity-90 transition text-sm shadow-lg shadow-primary/20 cursor-pointer"
                 >
                   Schedule a Discovery Call
@@ -409,6 +413,13 @@ export default function Home() {
         isOpen={isCandidateModalOpen}
         onClose={() => setIsCandidateModalOpen(false)}
       />
+      <BookCallModal
+        isOpen={isBookCallModalOpen}
+        onClose={() => setIsBookCallModalOpen(false)}
+      />
+
+      {/* Floating Call Booking Action Button */}
+      <FloatingBookCallButton onOpenBookCall={() => setIsBookCallModalOpen(true)} />
     </div>
   );
 }

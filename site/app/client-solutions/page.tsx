@@ -5,16 +5,20 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ClientFormModal from '../../components/ClientFormModal';
 import CandidateFormModal from '../../components/CandidateFormModal';
+import BookCallModal from '../../components/BookCallModal';
+import FloatingBookCallButton from '../../components/FloatingBookCallButton';
 
 export default function ClientSolutions() {
   const [isClientModalOpen, setIsClientModalOpen] = useState(false);
   const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false);
+  const [isBookCallModalOpen, setIsBookCallModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-darkBody text-white flex flex-col font-sans selection:bg-primary selection:text-black">
       <Navbar
         onOpenClientForm={() => setIsClientModalOpen(true)}
         onOpenCandidateForm={() => setIsCandidateModalOpen(true)}
+        onOpenBookCall={() => setIsBookCallModalOpen(true)}
       />
 
       <main className="flex-grow">
@@ -239,6 +243,9 @@ export default function ClientSolutions() {
 
       <ClientFormModal isOpen={isClientModalOpen} onClose={() => setIsClientModalOpen(false)} />
       <CandidateFormModal isOpen={isCandidateModalOpen} onClose={() => setIsCandidateModalOpen(false)} />
+      <BookCallModal isOpen={isBookCallModalOpen} onClose={() => setIsBookCallModalOpen(false)} />
+
+      <FloatingBookCallButton onOpenBookCall={() => setIsBookCallModalOpen(true)} />
     </div>
   );
 }

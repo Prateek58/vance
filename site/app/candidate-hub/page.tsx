@@ -6,6 +6,8 @@ import Footer from '../../components/Footer';
 import CandidateForm from '../../components/CandidateForm';
 import CandidateFormModal from '../../components/CandidateFormModal';
 import ClientFormModal from '../../components/ClientFormModal';
+import BookCallModal from '../../components/BookCallModal';
+import FloatingBookCallButton from '../../components/FloatingBookCallButton';
 
 interface JobPosting {
   id: string;
@@ -106,6 +108,7 @@ const SAMPLE_JOBS: JobPosting[] = [
 export default function CandidateHub() {
   const [isClientModalOpen, setIsClientModalOpen] = useState(false);
   const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false);
+  const [isBookCallModalOpen, setIsBookCallModalOpen] = useState(false);
   const [selectedJobTitle, setSelectedJobTitle] = useState('');
   const [expandedJobId, setExpandedJobId] = useState<string | null>('job-1');
 
@@ -141,6 +144,7 @@ export default function CandidateHub() {
           setSelectedJobTitle('');
           setIsCandidateModalOpen(true);
         }}
+        onOpenBookCall={() => setIsBookCallModalOpen(true)}
       />
 
       <main className="flex-grow">
@@ -394,6 +398,9 @@ export default function CandidateHub() {
         onClose={() => setIsCandidateModalOpen(false)}
         initialJobTitle={selectedJobTitle}
       />
+      <BookCallModal isOpen={isBookCallModalOpen} onClose={() => setIsBookCallModalOpen(false)} />
+
+      <FloatingBookCallButton onOpenBookCall={() => setIsBookCallModalOpen(true)} />
     </div>
   );
 }

@@ -7,9 +7,10 @@ import { usePathname } from 'next/navigation';
 interface NavbarProps {
   onOpenClientForm?: () => void;
   onOpenCandidateForm?: () => void;
+  onOpenBookCall?: () => void;
 }
 
-export default function Navbar({ onOpenClientForm, onOpenCandidateForm }: NavbarProps) {
+export default function Navbar({ onOpenClientForm, onOpenCandidateForm, onOpenBookCall }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -76,6 +77,15 @@ export default function Navbar({ onOpenClientForm, onOpenCandidateForm }: Navbar
 
         {/* Desktop Action Buttons */}
         <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
+          <button
+            onClick={onOpenBookCall}
+            className="text-xs font-semibold px-3 py-2 xl:px-4 xl:py-2.5 rounded-lg border border-primary/50 text-primary hover:bg-primary/10 transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5"
+          >
+            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/>
+            </svg>
+            Book a Call
+          </button>
           <button
             onClick={onOpenCandidateForm}
             className="text-xs font-semibold px-3 py-2 xl:px-4 xl:py-2.5 rounded-lg border border-white/20 text-gray-200 hover:border-secondary hover:text-secondary transition-all cursor-pointer whitespace-nowrap"
@@ -147,6 +157,18 @@ export default function Navbar({ onOpenClientForm, onOpenCandidateForm }: Navbar
             Contact
           </Link>
           <div className="pt-4 flex flex-col gap-3">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenBookCall?.();
+              }}
+              className="w-full text-center text-sm font-bold py-3 rounded-lg border border-primary/50 text-primary hover:bg-primary/10 cursor-pointer flex items-center justify-center gap-2"
+            >
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/>
+              </svg>
+              Book a Call
+            </button>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
