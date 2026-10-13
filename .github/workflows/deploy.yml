@@ -29,7 +29,24 @@ jobs:
             export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
 
             echo "🚀 Navigating to application directory..."
-            cd ${{ secrets.TARGET_DIR }}
+            TARGET="${{ secrets.TARGET_DIR || 'htdocs/vanceitsolutions.com' }}"
+            TARGET="${TARGET/#\~/$HOME}"
+            if [ -d "$TARGET" ]; then
+              cd "$TARGET"
+            elif [ -d "$HOME/$TARGET" ]; then
+              cd "$HOME/$TARGET"
+            else
+              # Fallback: search /home for the site folder in CloudPanel
+              SEARCH_DIR=$(find /home -maxdepth 4 -type d -name "vanceitsolutions.com" 2>/dev/null | head -n 1)
+              if [ -n "$SEARCH_DIR" ]; then
+                echo "Found directory at: $SEARCH_DIR"
+                cd "$SEARCH_DIR"
+              else
+                echo "❌ Could not find directory: $TARGET"
+                exit 1
+              fi
+            fi
+            echo "📍 Current directory: $(pwd)"
 
             echo "⬇️ Pulling latest changes from main branch..."
             git pull origin main
