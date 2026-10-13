@@ -1,0 +1,55 @@
+name: Deploy to CloudPanel VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  deploy:
+    name: Deploy to Ubuntu VPS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH and Deploy to VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script_stop: true
+          script: |
+            # 1. Ensure Node.js & NVM path is loaded in non-interactive shell
+            export NVM_DIR="$HOME/.nvm"
+            if [ -s "$NVM_DIR/nvm.sh" ]; then
+              . "$NVM_DIR/nvm.sh"
+            fi
+            export PATH="$PATH:/usr/local/bin:/usr/bin:/bin"
+
+            echo "🚀 Navigating to application directory..."
+            cd ${{ secrets.TARGET_DIR }}
+
+            echo "⬇️ Pulling latest changes from main branch..."
+            git pull origin main
+
+            echo "📦 Navigating to site subfolder..."
+            cd site
+
+            echo "📥 Installing dependencies..."
+            npm install
+
+            echo "🏗️ Building Next.js application..."
+            npm run build
+
+            echo "🔄 Restarting application..."
+            # If using PM2:
+            if command -v pm2 > /dev/null; then
+              pm2 reload all || pm2 restart all
+            fi
+
+            # If using CloudPanel CLI (clpctl) to restart site:
+            # clpctl site:restart --domain=yourdomain.com
+
+            echo "✅ Deployment completed successfully!"
