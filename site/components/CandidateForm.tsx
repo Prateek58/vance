@@ -273,11 +273,13 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
             <option value="Full-Stack / Web Development">Full-Stack / Web Development</option>
             <option value="Cloud Architecture / DevOps">Cloud Architecture / DevOps</option>
             <option value="Data Engineering / AI & ML">Data Engineering / AI & ML</option>
+            <option value="AI / LLM Systems & Product Management">AI / LLM Systems & Product Management</option>
             <option value="Backend Development (Java/Go/Node)">Backend Development (Java/Go/Node)</option>
             <option value="Networking & Infrastructure">Networking & Infrastructure</option>
             <option value="Cybersecurity & InfoSec">Cybersecurity & InfoSec</option>
             <option value="ERP & Enterprise Systems (SAP/Salesforce/Oracle)">ERP & Enterprise Systems (SAP/Salesforce/Oracle)</option>
             <option value="Mobile App Development (iOS/Android)">Mobile App Development (iOS/Android)</option>
+            <option value="Finance & Project Management">Finance & Project Management</option>
             <option value="Technical SEO & Performance">Technical SEO & Performance</option>
             <option value="IT Consulting & Management">IT Consulting & Management</option>
             <option value="Other">Other</option>
@@ -296,6 +298,7 @@ export default function CandidateForm({ onSuccess, initialJobTitle = '', classNa
             <option value="W2">W2 Employee</option>
             <option value="1099">1099 Independent Contractor</option>
             <option value="Corp-to-Corp / C2C">Corp-to-Corp / C2C</option>
+            <option value="Contract-to-Hire">Contract-to-Hire</option>
             <option value="Direct Hire / Full-Time">Direct Hire / Full-Time</option>
           </select>
         </div>

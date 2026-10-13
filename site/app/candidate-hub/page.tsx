@@ -21,6 +21,8 @@ interface JobPosting {
   summary: string;
   impact: string;
   responsibilities: string[];
+  qualifications?: string[];
+  eligibility?: string;
 }
 
 const SAMPLE_JOBS: JobPosting[] = [
@@ -30,7 +32,7 @@ const SAMPLE_JOBS: JobPosting[] = [
     category: 'Cloud',
     location: 'Remote US',
     type: 'Contract',
-    rate: '$90 - $110 / hr (W2 or C2C)',
+    rate: 'W2',
     techStack: ['AWS', 'Terraform', 'Kubernetes', 'Python', 'CI/CD'],
     summary: 'Lead multi-region AWS cloud infrastructure migration for an enterprise fintech client.',
     impact: 'Architect zero-downtime deployment pipelines reducing deployment cycle time from days to minutes.',
@@ -46,7 +48,7 @@ const SAMPLE_JOBS: JobPosting[] = [
     category: 'Full Stack',
     location: 'Remote US',
     type: 'Full-time',
-    rate: '$155,000 - $175,000 / yr + Equity',
+    rate: 'Direct Hire',
     techStack: ['React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL'],
     summary: 'Spearhead core customer dashboard modernization and high-performance Web Vitals delivery.',
     impact: 'Directly influence digital customer conversion across 500k+ monthly active enterprise users.',
@@ -62,7 +64,7 @@ const SAMPLE_JOBS: JobPosting[] = [
     category: 'Data/AI',
     location: 'Hybrid (New York, NY)',
     type: 'Contract',
-    rate: '$95 - $120 / hr (1099 / C2C)',
+    rate: 'W2',
     techStack: ['Python', 'PyTorch', 'Snowflake', 'Spark', 'Databricks'],
     summary: 'Build high-throughput LLM pipeline integrations and enterprise vector database indexing.',
     impact: 'Power real-time retrieval-augmented generation (RAG) for internal enterprise intelligence tools.',
@@ -77,8 +79,8 @@ const SAMPLE_JOBS: JobPosting[] = [
     title: 'Enterprise Java / Microservices Engineer',
     category: 'Backend',
     location: 'Remote US',
-    type: 'Temp',
-    rate: '$85 - $100 / hr (W2)',
+    type: 'Contract',
+    rate: 'W2',
     techStack: ['Java 17', 'Spring Boot', 'Kafka', 'Docker', 'Oracle'],
     summary: 'Execute core transaction engine refactoring for high-volume banking portal.',
     impact: 'Eliminate legacy latency bottlenecks while maintaining 99.999% availability SLAs.',
@@ -93,8 +95,8 @@ const SAMPLE_JOBS: JobPosting[] = [
     title: 'Technical SEO Architect & Web Strategist',
     category: 'Product',
     location: 'Remote US',
-    type: 'Contract',
-    rate: '$75 - $95 / hr',
+    type: 'Full-time',
+    rate: 'Direct Hire',
     techStack: ['Core Web Vitals', 'Headless CMS', 'Next.js', 'Lighthouse', 'GA4'],
     summary: 'Diagnose enterprise web assets for organic ranking authority and Core Web Vitals score optimization.',
     impact: 'Drive organic search market share growth across B2B enterprise SaaS portals.',
@@ -102,6 +104,133 @@ const SAMPLE_JOBS: JobPosting[] = [
       'Conduct complete technical SEO code reviews and indexability remediation.',
       'Partner with engineering teams to optimize LCP, CLS, and INP metrics.',
       'Implement structured schema architectures across large-scale web properties.',
+    ],
+  },
+  {
+    id: 'job-6',
+    title: 'Network & Desktop Support Technician',
+    category: 'Networking',
+    location: 'Ashburn, VA (100% Onsite)',
+    type: 'Full-time',
+    rate: '$60,000 - $70,000 / yr Base (~$29 - $34 / hr)',
+    techStack: ['Cisco', 'Juniper', 'RingCentral VoIP', 'Windows OS', 'macOS', 'MSP'],
+    summary: 'Manage onsite Cisco & Juniper network infrastructure, coordinate with external MSP teams, and deliver VIP white-glove technical support to executive leadership and hybrid staff in Ashburn, VA.',
+    impact: 'Deliver seamless zero-friction IT operations for executive leadership while maintaining 99.9% onsite network rack uptime and MSP synergy.',
+    responsibilities: [
+      'Executive & VIP White-Glove Support: Provide high-patience, premium technical assistance to the CEO and executive staff, translating complex technical issues into simple, reassuring solutions for non-technical users.',
+      'Network Rack & Infrastructure Support: Perform hands-on maintenance, provisioning, patching, and physical stack-and-rack duties for our Cisco and Juniper network infrastructure.',
+      'MSP Coordination: Act as the primary onsite point of contact for our external Managed Service Provider (MSP), collaborating on escalations, complex network troubleshooting, and strategic projects.',
+      'Hybrid End-User Support: Troubleshoot hardware, software, and connectivity issues for both local onsite staff and remote teams.',
+      'VOIP Management: Administer and maintain our RingCentral VoIP communication systems, including desk phones, softphones, and meeting room configurations.',
+      'Multi-Platform & Peripheral Support: Manage deployment, imaging, and troubleshooting for Windows and Mac laptops, alongside office peripherals such as printers, scanners, and conference room AV gear.',
+    ],
+    qualifications: [
+      'Experience: 2–5 years of experience in a dual network and desktop support role, preferably with a history of supporting corporate executives.',
+      'Technical Skills: Hands-on experience managing and cabling physical network racks (Cisco and Juniper environment).',
+      'Cloud Communications: Familiarity with cloud communication tools, specifically RingCentral VoIP.',
+      'Multi-Platform Support: Proficiency in supporting both Windows OS and macOS endpoints and office peripherals.',
+      'Collaboration: Proven experience working alongside an external MSP or third-party vendor network team.',
+      'Soft Skills: Exceptional patience, communication, and emotional intelligence. Ability to remain calm and professional while providing "white-glove" support to less tech-savvy users.',
+    ],
+  },
+  {
+    id: 'job-7',
+    title: 'Financial Project Manager (Mid to Senior Level)',
+    category: 'Finance & PM',
+    location: 'New York, NY (100% Onsite)',
+    type: 'Contract-to-Hire',
+    rate: '$80 - $95 / hr (W2/C2C) • $150k - $175k/yr conversion',
+    eligibility: 'US Citizens / GC Only (No Sponsorship)',
+    techStack: ['Jira', 'Confluence', 'MS Project', 'Clarity', 'Financial Governance', 'Capital Markets', 'PMP / Agile'],
+    summary: 'Lead complex, high-visibility financial transformation projects, regulatory compliance initiatives, and core system implementations for a premier NYC professional services and consulting firm.',
+    impact: 'Drive end-to-end delivery of mid-to-large scale financial initiatives while maintaining rigorous budget variance controls and corporate scope alignment.',
+    responsibilities: [
+      'Project Leadership: End-to-end delivery of mid-to-large scale financial initiatives, ensuring alignment with corporate timeline, scope, and budget benchmarks.',
+      'Stakeholder & Vendor Matrix: Act as a central hub between finance executives, operations, technology teams, and external consulting practices.',
+      'Governance & Reporting: Formulate detailed project charters, master schedules, resource planning matrices, and risk assessment registries. Present health dashboards to steering committees.',
+      'Financial Tracking: Control project budgets, analyze variances, track delivery-related capital expenditures, and forecast financial resource allocations.',
+      'Risk Mitigation: Proactively identify bottlenecks or regulatory blockers, engineering contingency strategies to keep fast-tracked tracks moving seamlessly.',
+    ],
+    qualifications: [
+      'Experience: 6–10 years managing financial workstreams, capital markets projects, or enterprise financial systems deployment within global corporate environments.',
+      'Technical Foundations: Mastery of project management suites (e.g., Jira, Confluence, MS Project, Clarity). Deep understanding of corporate finance operations, accounting structures, and financial compliance frameworks.',
+      'Locality & Work Authorization: US Citizens or Green Card Holders Only (No sponsorship available). Must reside in the Greater New York area and commute to the Manhattan office daily.',
+      'Certifications (Preferred): PMP (Project Management Professional) or Agile/Scrum certifications are highly desirable.',
+    ],
+  },
+  {
+    id: 'job-8',
+    title: 'Senior Financial Business Analyst',
+    category: 'Finance & PM',
+    location: 'New York, NY (100% Onsite)',
+    type: 'Contract-to-Hire',
+    rate: '$75 - $90 / hr (W2/C2C) • $140k - $160k/yr conversion',
+    eligibility: 'US Citizens / GC Only (No Sponsorship)',
+    techStack: ['SQL', 'Power BI / Tableau', 'Advanced Excel', 'Visio / Signavio', 'BRD / FRD', 'Capital Markets', 'UAT'],
+    summary: 'Evaluate complex financial systems, dissect massive regulatory and financial data streams, and translate intricate institutional accounting challenges into structured technical specifications.',
+    impact: 'Serve as the primary bridge between raw corporate accounting data and advanced technical delivery squads to accelerate accurate automated financial reporting.',
+    responsibilities: [
+      'Requirements Gathering: Conduct workshops and cross-departmental focus sessions to elicit, refine, and map comprehensive technical and functional business requirements (BRD/FRD).',
+      'Data Lineage & Analysis: Query and manipulate complex relational databases using SQL to run financial reconciliations, historical data modeling, and performance variances.',
+      'Process Engineering: Document current-state financial systems and engineer optimized future-state workflows to boost processing accuracy, automation, and speed.',
+      'System Testing Integration: Collaborate with QA squads to formulate comprehensive test plans, validate user acceptance criteria (UAT), and troubleshoot calculations during platform migrations.',
+      'Executive Translation: Condense vast analytical datasets into crisp business insights and documentation models for non-technical stakeholders and executive teams.',
+    ],
+    qualifications: [
+      'Experience: 5–8 years of experience operating as a Senior Business Analyst within a capital markets environment, investment banking institution, or global financial services sector.',
+      'Technical Foundations: High proficiency using SQL, data visualization software (e.g., Power BI, Tableau), advanced Excel forecasting modeling, and BPMN visualization tools (Visio/Signavio).',
+      'Industry Knowledge: Thorough understanding of general ledgers, sub-ledgers, global trade lifecycles, and financial reporting standards.',
+      'Locality & Work Authorization: US Citizens or Green Card Holders Only (No sponsorship available). Must reside in the Greater New York area and commute to the Manhattan office daily.',
+    ],
+  },
+  {
+    id: 'job-9',
+    title: 'Senior AI & LLM Systems Engineer',
+    category: 'Data/AI',
+    location: 'Remote US',
+    type: 'Full-time',
+    rate: '$165,000 - $190,000 / yr Base + Benefits',
+    eligibility: 'US Citizens / GC Only (No Sponsorship)',
+    techStack: ['LangChain', 'RAG Architecture', 'LLM Integration', 'Vector DBs (Pinecone/pgvector)', 'Python', 'FastAPI', 'OpenAI / Claude APIs'],
+    summary: 'Architect and scale production-grade Generative AI systems, integrating large language models (LLMs) and advanced Retrieval-Augmented Generation (RAG) pipelines using LangChain and high-performance vector databases.',
+    impact: 'Power enterprise-grade intelligent workflows with sub-second retrieval latency, robust hallucination mitigation, and strict data security compliance.',
+    responsibilities: [
+      'LLM & RAG Integration: Architect end-to-end Retrieval-Augmented Generation (RAG) pipelines leveraging LangChain, LlamaIndex, and hybrid search (semantic + dense embeddings).',
+      'Vector Database Infrastructure: Implement and optimize vector stores (Pinecone, pgvector, Milvus, Qdrant) for high-throughput semantic similarity queries and automated chunking.',
+      'Prompt Engineering & Model Orchestration: Design complex multi-step reasoning chains, agentic workflows, and guarded prompt architectures with strict output validation.',
+      'Enterprise API Development: Build high-concurrency microservices using Python (FastAPI/AsyncIO) to expose scalable inference and knowledge retrieval endpoints.',
+      'Evaluation & Guardrails: Establish rigorous LLM evaluation frameworks (faithfulness, hallucination metrics, context recall) and safety guardrails across sensitive data pipelines.',
+    ],
+    qualifications: [
+      'Experience: 4–7+ years of software engineering experience with 2+ years dedicated to LLM application development, RAG frameworks, and NLP in production.',
+      'Core Frameworks: Deep hands-on proficiency with LangChain, LlamaIndex, OpenAI/Anthropic SDKs, and Hugging Face transformers.',
+      'Vector & Data Engineering: Hands-on expertise with vector databases (Pinecone, Weaviate, pgvector), chunking strategies, and metadata filtering.',
+      'Eligibility: US Citizens or Green Card Holders Only (No sponsorship available; 100% Remote US).',
+    ],
+  },
+  {
+    id: 'job-10',
+    title: 'Product Owner – AI Products & Intelligent Platforms',
+    category: 'Product',
+    location: 'Remote US',
+    type: 'Full-time',
+    rate: '$160,000 - $185,000 / yr Base + Bonus',
+    eligibility: 'US Citizens / GC Only (No Sponsorship)',
+    techStack: ['AI Product Roadmaps', 'LLM UX & Workflows', 'RAG Functional Specs', 'Agile / Scrum', 'Jira', 'Data Analytics', 'Prompt Governance'],
+    summary: 'Lead product discovery, roadmap vision, and backlog execution for enterprise Generative AI and LLM-powered products, translating complex AI capabilities into intuitive, high-impact business applications.',
+    impact: 'Drive product-market fit and enterprise adoption for AI platforms while enforcing ethical governance, data privacy, and measurable business ROI.',
+    responsibilities: [
+      'AI Product Vision & Roadmap: Define and execute multi-quarter roadmaps for LLM and AI-powered enterprise applications, aligning engineering milestones with user value.',
+      'Feature Discovery & Backlog Grooming: Author clear epics, user stories, and acceptance criteria in Jira for RAG architectures, conversational agents, and workflow automations.',
+      'Cross-Functional Alignment: Partner closely with AI/ML research engineers, software developers, UX/UI designers, and executive stakeholders to drive iterative Agile delivery.',
+      'Product Analytics & Quality Metrics: Track model evaluation KPIs, user adoption, token efficiency, and customer satisfaction to continuously refine product features.',
+      'Governance & Ethical Standards: Champion enterprise compliance, data privacy, bias prevention, and safety guardrails across all AI product touchpoints.',
+    ],
+    qualifications: [
+      'Experience: 5–8 years of technical product management or product ownership experience, with at least 2+ years dedicated to AI/ML or Generative AI products.',
+      'Domain Expertise: Deep functional understanding of LLM capabilities, RAG pipelines, prompt engineering lifecycle, and AI limitations.',
+      'Agile Leadership: Certified Scrum Product Owner (CSPO) or demonstrated track record managing complex backlogs and sprint ceremonies.',
+      'Eligibility: US Citizens or Green Card Holders Only (No sponsorship available; 100% Remote US).',
     ],
   },
 ];
@@ -145,7 +274,10 @@ export default function CandidateHub() {
 
     const matchesCategory = selectedCategory === 'All' || job.category === selectedCategory;
     const matchesLocation = selectedLocation === 'All' || job.location.includes(selectedLocation);
-    const matchesType = selectedType === 'All' || job.type === selectedType;
+    const matchesType =
+      selectedType === 'All' ||
+      job.type === selectedType ||
+      (selectedType === 'Contract' && job.type.includes('Contract'));
 
     return matchesSearch && matchesCategory && matchesLocation && matchesType;
   });
@@ -234,10 +366,11 @@ export default function CandidateHub() {
                   <option value="Data/AI">Data & AI/ML</option>
                   <option value="Backend">Backend Development</option>
                   <option value="Networking">Networking & Infrastructure</option>
+                  <option value="Finance & PM">Finance & Project Management</option>
                   <option value="Cybersecurity">Cybersecurity & InfoSec</option>
                   <option value="ERP">ERP & Enterprise Systems</option>
                   <option value="Mobile">Mobile Development</option>
-                  <option value="Product">SEO & Product</option>
+                  <option value="Product">Product & Technical Strategy</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
@@ -267,6 +400,7 @@ export default function CandidateHub() {
                 >
                   <option value="All">All Models</option>
                   <option value="Contract">Contract / 1099 / C2C</option>
+                  <option value="Contract-to-Hire">Contract-to-Hire</option>
                   <option value="Temp">Temp / Short-term</option>
                   <option value="Full-time">Full-time Direct Hire</option>
                 </select>
@@ -298,6 +432,11 @@ export default function CandidateHub() {
                           <span className="px-2.5 py-0.5 rounded-md bg-white/5 text-gray-300 border border-white/10 text-[10px] font-semibold">
                             {job.location}
                           </span>
+                          {job.eligibility && (
+                            <span className="px-2.5 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[10px] font-semibold">
+                              {job.eligibility}
+                            </span>
+                          )}
                           <span className="text-xs font-semibold text-primary">{job.rate}</span>
                         </div>
                         <h3 className="text-xl font-bold text-white">{job.title}</h3>
@@ -318,7 +457,7 @@ export default function CandidateHub() {
                           onClick={() => setExpandedJobId(isExpanded ? null : job.id)}
                           className="px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white border border-white/15 rounded-lg transition cursor-pointer"
                         >
-                          {isExpanded ? 'Hide Details ▲' : 'View Wireframe Details ▼'}
+                          {isExpanded ? 'Hide Details ▲' : 'View Details ▼'}
                         </button>
                         <button
                           onClick={() => handleApplyClick(job.title)}
@@ -343,6 +482,18 @@ export default function CandidateHub() {
                     {/* Job Detail Wireframe Box */}
                     {isExpanded && (
                       <div className="mt-4 pt-4 border-t border-white/10 space-y-4 bg-darkBody/80 p-5 rounded-xl border border-white/10 text-xs">
+                        {job.eligibility && (
+                          <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                              <span className="font-bold text-amber-300">Eligibility & Clearance: </span>
+                              <span>{job.eligibility}</span>
+                            </div>
+                            <span className="text-[11px] text-amber-300/80 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 shrink-0">
+                              {job.location.includes('Onsite') ? 'Daily Onsite Commute Required' : '100% Remote US'}
+                            </span>
+                          </div>
+                        )}
+
                         <div>
                           <span className="text-secondary font-bold uppercase tracking-wider block text-[10px] mb-1">Business Impact</span>
                           <p className="text-gray-300">{job.impact}</p>
@@ -356,6 +507,17 @@ export default function CandidateHub() {
                             ))}
                           </ul>
                         </div>
+
+                        {job.qualifications && job.qualifications.length > 0 && (
+                          <div>
+                            <span className="text-secondary font-bold uppercase tracking-wider block text-[10px] mb-1">Qualifications & Skills</span>
+                            <ul className="list-disc list-inside space-y-1 text-gray-300">
+                              {job.qualifications.map((qual, idx) => (
+                                <li key={idx}>{qual}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
 
                         <div className="pt-2 flex flex-wrap justify-between items-center gap-3 border-t border-white/10">
                           <span className="text-gray-400 text-[11px]">Direct Candidate Screening • Zero Automation Dumps</span>
@@ -397,7 +559,7 @@ export default function CandidateHub() {
           </div>
 
           <div className="max-w-3xl mx-auto p-6 sm:p-8 rounded-3xl bg-black/60 border border-secondary/30 shadow-2xl">
-            <CandidateForm initialJobTitle="" onSuccess={() => {}} />
+            <CandidateForm initialJobTitle="" onSuccess={() => { }} />
           </div>
         </section>
 

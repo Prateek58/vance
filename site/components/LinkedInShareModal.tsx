@@ -13,6 +13,8 @@ export interface JobPostingForShare {
   summary: string;
   impact: string;
   responsibilities: string[];
+  qualifications?: string[];
+  eligibility?: string;
 }
 
 interface LinkedInShareModalProps {
@@ -42,10 +44,12 @@ export default function LinkedInShareModal({ isOpen, onClose, job }: LinkedInSha
         ...job.techStack.slice(0, 3).map(t => `#${t.replace(/[^a-zA-Z0-9]/g, '')}`)
       ].join(' ');
 
+      const eligibilityLine = job.eligibility ? `\n🛡️ Eligibility: ${job.eligibility}` : '';
+
       const defaultText = `🚀 We are looking for a ${job.title}!
 
 📍 Location: ${job.location}
-💼 Model: ${job.type} | Rate: ${job.rate}
+💼 Model: ${job.type} | Rate: ${job.rate}${eligibilityLine}
 ⚡ Tech Stack: ${job.techStack.join(', ')}
 
 📝 Role Summary:
