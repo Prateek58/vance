@@ -112,7 +112,7 @@ const SAMPLE_JOBS: JobPosting[] = [
     category: 'Networking',
     location: 'Ashburn, VA (100% Onsite)',
     type: 'Full-time',
-    rate: '$60,000 - $70,000 / yr Base (~$29 - $34 / hr)',
+    rate: '$60,000 - $70,000 / yr Base',
     techStack: ['Cisco', 'Juniper', 'RingCentral VoIP', 'Windows OS', 'macOS', 'MSP'],
     summary: 'Manage onsite Cisco & Juniper network infrastructure, coordinate with external MSP teams, and deliver VIP white-glove technical support to executive leadership and hybrid staff in Ashburn, VA.',
     impact: 'Deliver seamless zero-friction IT operations for executive leadership while maintaining 99.9% onsite network rack uptime and MSP synergy.',
@@ -139,7 +139,7 @@ const SAMPLE_JOBS: JobPosting[] = [
     category: 'Finance & PM',
     location: 'New York, NY (100% Onsite)',
     type: 'Contract-to-Hire',
-    rate: '$80 - $95 / hr (W2/C2C) • $150k - $175k/yr conversion',
+    rate: 'W2 / C2C',
     eligibility: 'US Citizens / GC Only (No Sponsorship)',
     techStack: ['Jira', 'Confluence', 'MS Project', 'Clarity', 'Financial Governance', 'Capital Markets', 'PMP / Agile'],
     summary: 'Lead complex, high-visibility financial transformation projects, regulatory compliance initiatives, and core system implementations for a premier NYC professional services and consulting firm.',
@@ -164,7 +164,7 @@ const SAMPLE_JOBS: JobPosting[] = [
     category: 'Finance & PM',
     location: 'New York, NY (100% Onsite)',
     type: 'Contract-to-Hire',
-    rate: '$75 - $90 / hr (W2/C2C) • $140k - $160k/yr conversion',
+    rate: 'W2 / C2C',
     eligibility: 'US Citizens / GC Only (No Sponsorship)',
     techStack: ['SQL', 'Power BI / Tableau', 'Advanced Excel', 'Visio / Signavio', 'BRD / FRD', 'Capital Markets', 'UAT'],
     summary: 'Evaluate complex financial systems, dissect massive regulatory and financial data streams, and translate intricate institutional accounting challenges into structured technical specifications.',
@@ -437,7 +437,9 @@ export default function CandidateHub() {
                               {job.eligibility}
                             </span>
                           )}
-                          <span className="text-xs font-semibold text-primary">{job.rate}</span>
+                          {job.rate && (
+                            <span className="text-xs font-semibold text-primary">{job.rate}</span>
+                          )}
                         </div>
                         <h3 className="text-xl font-bold text-white">{job.title}</h3>
                       </div>
