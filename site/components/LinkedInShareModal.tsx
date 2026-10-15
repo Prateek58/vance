@@ -32,7 +32,7 @@ export default function LinkedInShareModal({ isOpen, onClose, job }: LinkedInSha
   useEffect(() => {
     if (job) {
       const origin = typeof window !== 'undefined' ? window.location.origin : 'https://vanceitsolutions.com';
-      const fullUrl = `${origin}/candidate-hub?job=${job.id}`;
+      const fullUrl = `${origin}/jobs?id=${job.id}`;
       setShareUrl(fullUrl);
 
       const hashtags = [

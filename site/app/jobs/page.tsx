@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CandidateForm from '../../components/CandidateForm';
@@ -235,7 +236,9 @@ const SAMPLE_JOBS: JobPosting[] = [
   },
 ];
 
-export default function CandidateHub() {
+function JobsBoard() {
+  const searchParams = useSearchParams();
+
   const [isClientModalOpen, setIsClientModalOpen] = useState(false);
   const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false);
   const [isBookCallModalOpen, setIsBookCallModalOpen] = useState(false);
@@ -243,6 +246,7 @@ export default function CandidateHub() {
   const [selectedJobForShare, setSelectedJobForShare] = useState<JobPosting | null>(null);
   const [selectedJobTitle, setSelectedJobTitle] = useState('');
   const [expandedJobId, setExpandedJobId] = useState<string | null>('job-1');
+  const [highlightedJobId, setHighlightedJobId] = useState<string | null>(null);
 
   // Filter states
   const [searchQuery, setSearchQuery] = useState('');
@@ -250,21 +254,53 @@ export default function CandidateHub() {
   const [selectedLocation, setSelectedLocation] = useState('All');
   const [selectedType, setSelectedType] = useState('All');
 
+  // Find targeted job from query params (supports both ?id=... and ?job=...)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const targetJob = params.get('job');
-      if (targetJob) {
-        setExpandedJobId(targetJob);
-        setTimeout(() => {
-          const el = document.getElementById(targetJob);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }, 200);
-      }
+    const rawTarget = searchParams.get('id') || searchParams.get('job');
+    if (!rawTarget) return;
+
+    const cleanTarget = rawTarget.toLowerCase().trim();
+    const matched = SAMPLE_JOBS.find((j) => {
+      const cleanId = j.id.toLowerCase().trim();
+      return (
+        cleanId === cleanTarget ||
+        cleanId === `job-${cleanTarget}` ||
+        cleanId.replace(/^job-/, '') === cleanTarget
+      );
+    });
+
+    if (matched) {
+      setExpandedJobId(matched.id);
+      setHighlightedJobId(matched.id);
+
+      // Ensure any active filter does not hide this specific job
+      setSelectedCategory('All');
+      setSelectedLocation('All');
+      setSelectedType('All');
+      setSearchQuery('');
+
+      // Scroll smoothly to exact job card (with small timeout to let DOM render)
+      const scrollToElement = () => {
+        const el = document.getElementById(matched.id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
+      const t1 = setTimeout(scrollToElement, 150);
+      const t2 = setTimeout(scrollToElement, 500);
+
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
     }
-  }, []);
+  }, [searchParams]);
+
+  const highlightedJob = useMemo(() => {
+    if (!highlightedJobId) return null;
+    return SAMPLE_JOBS.find((j) => j.id === highlightedJobId) || null;
+  }, [highlightedJobId]);
 
   const filteredJobs = SAMPLE_JOBS.filter((job) => {
     const matchesSearch =
@@ -292,6 +328,16 @@ export default function CandidateHub() {
     setIsShareModalOpen(true);
   };
 
+  const clearSelection = () => {
+    setHighlightedJobId(null);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('id');
+      url.searchParams.delete('job');
+      window.history.replaceState({}, '', url.pathname);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-darkBody text-white flex flex-col font-sans selection:bg-secondary selection:text-black">
       <Navbar
@@ -303,12 +349,43 @@ export default function CandidateHub() {
         onOpenBookCall={() => setIsBookCallModalOpen(true)}
       />
 
+      {/* Direct-Linked Job Top Banner Notification */}
+      {highlightedJob && (
+        <div className="sticky top-16 sm:top-20 z-40 bg-black/95 backdrop-blur-md border-b border-secondary/40 px-4 py-3 shadow-2xl animate-fade-in">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5">
+              <span className="px-2.5 py-1 rounded bg-secondary text-black font-extrabold text-[10px] uppercase tracking-wider shrink-0">
+                Direct Link
+              </span>
+              <span className="text-gray-200">
+                You are viewing: <strong className="text-secondary font-bold">{highlightedJob.title}</strong>{' '}
+                <span className="text-gray-400">({highlightedJob.location} • {highlightedJob.type})</span>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
+              <button
+                onClick={() => handleApplyClick(highlightedJob.title)}
+                className="px-4 py-1.5 rounded-lg bg-secondary text-black font-bold text-xs hover:bg-secondary/90 transition shadow-md shadow-secondary/20 cursor-pointer"
+              >
+                Apply for this Role
+              </button>
+              <button
+                onClick={clearSelection}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs transition cursor-pointer"
+              >
+                Browse All Positions
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <main className="flex-grow">
         {/* Page Header */}
         <section className="relative pt-12 pb-16 bg-gradient-to-b from-black/70 to-darkBody border-b border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-secondary/30 bg-secondary/10 text-secondary text-xs font-semibold uppercase tracking-wider">
-              Candidate Hub & Developer Portal
+              Career Opportunities & Job Board
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
               Step Into Your Next{' '}
@@ -417,12 +494,34 @@ export default function CandidateHub() {
             ) : (
               filteredJobs.map((job) => {
                 const isExpanded = expandedJobId === job.id;
+                const isTargetHighlight = highlightedJobId === job.id;
+
                 return (
                   <div
                     key={job.id}
                     id={job.id}
-                    className="p-6 rounded-2xl bg-black/40 border border-white/10 hover:border-secondary/40 transition duration-200 space-y-4"
+                    className={`scroll-mt-24 sm:scroll-mt-28 p-6 rounded-2xl transition-all duration-300 space-y-4 ${
+                      isTargetHighlight
+                        ? 'bg-gradient-to-br from-secondary/15 via-black/80 to-black/60 border-2 border-secondary shadow-[0_0_35px_rgba(234,179,8,0.25)] ring-1 ring-secondary/50'
+                        : 'bg-black/40 border border-white/10 hover:border-secondary/40'
+                    }`}
                   >
+                    {/* Highlighted Banner Inside Card */}
+                    {isTargetHighlight && (
+                      <div className="flex items-center justify-between pb-3 border-b border-secondary/20 text-xs">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/20 text-secondary border border-secondary/40 font-bold">
+                          <span>🎯</span>
+                          <span>Shared Role Linked Directly</span>
+                        </span>
+                        <button
+                          onClick={clearSelection}
+                          className="text-gray-400 hover:text-white underline cursor-pointer text-[11px]"
+                        >
+                          Clear Selection
+                        </button>
+                      </div>
+                    )}
+
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
                         <div className="flex flex-wrap items-center gap-2 mb-1">
@@ -459,69 +558,71 @@ export default function CandidateHub() {
                           onClick={() => setExpandedJobId(isExpanded ? null : job.id)}
                           className="px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white border border-white/15 rounded-lg transition cursor-pointer"
                         >
-                          {isExpanded ? 'Hide Details ▲' : 'View Details ▼'}
+                          {isExpanded ? 'Hide Details ▲' : 'View Role & Stack ▼'}
                         </button>
                         <button
                           onClick={() => handleApplyClick(job.title)}
-                          className="px-5 py-2 text-xs font-extrabold bg-gradient-to-r from-secondary to-primary text-black rounded-lg hover:opacity-90 transition cursor-pointer shadow-md shadow-secondary/20"
+                          className="px-4 py-2 text-xs font-bold bg-secondary text-black rounded-lg hover:bg-secondary/80 transition cursor-pointer"
                         >
-                          One-Click Apply
+                          Apply Now
                         </button>
                       </div>
                     </div>
 
-                    <p className="text-xs text-gray-300">{job.summary}</p>
-
-                    {/* Tech Stack Pills */}
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {job.techStack.map((tech, i) => (
-                        <span key={i} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[11px] text-gray-300">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Job Detail Wireframe Box */}
+                    {/* Collapsible Detailed View */}
                     {isExpanded && (
-                      <div className="mt-4 pt-4 border-t border-white/10 space-y-4 bg-darkBody/80 p-5 rounded-xl border border-white/10 text-xs">
-                        {job.eligibility && (
-                          <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div>
-                              <span className="font-bold text-amber-300">Eligibility & Clearance: </span>
-                              <span>{job.eligibility}</span>
-                            </div>
-                            <span className="text-[11px] text-amber-300/80 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 shrink-0">
-                              {job.location.includes('Onsite') ? 'Daily Onsite Commute Required' : '100% Remote US'}
-                            </span>
+                      <div className="pt-4 border-t border-white/10 space-y-4 text-xs animate-fade-in">
+                        {/* Summary & Impact */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="p-4 rounded-xl bg-white/5 space-y-1.5">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Role Summary</span>
+                            <p className="text-gray-200 leading-relaxed">{job.summary}</p>
                           </div>
-                        )}
-
-                        <div>
-                          <span className="text-secondary font-bold uppercase tracking-wider block text-[10px] mb-1">Business Impact</span>
-                          <p className="text-gray-300">{job.impact}</p>
+                          <div className="p-4 rounded-xl bg-white/5 space-y-1.5">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-secondary">Mission & Impact</span>
+                            <p className="text-gray-200 leading-relaxed">{job.impact}</p>
+                          </div>
                         </div>
 
-                        <div>
-                          <span className="text-secondary font-bold uppercase tracking-wider block text-[10px] mb-1">Key Responsibilities</span>
-                          <ul className="list-disc list-inside space-y-1 text-gray-300">
-                            {job.responsibilities.map((resp, idx) => (
-                              <li key={idx}>{resp}</li>
+                        {/* Tech Stack Chips */}
+                        <div className="space-y-1.5">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Core Technologies</span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {job.techStack.map((tech, i) => (
+                              <span
+                                key={i}
+                                className="px-2.5 py-1 rounded-md bg-white/5 text-gray-200 border border-white/10 text-[11px] font-mono"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Responsibilities */}
+                        <div className="space-y-1.5">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Key Responsibilities</span>
+                          <ul className="list-disc list-inside space-y-1 text-gray-300 pl-1">
+                            {job.responsibilities.map((resp, i) => (
+                              <li key={i}>{resp}</li>
                             ))}
                           </ul>
                         </div>
 
+                        {/* Qualifications / Eligibility if present */}
                         {job.qualifications && job.qualifications.length > 0 && (
-                          <div>
-                            <span className="text-secondary font-bold uppercase tracking-wider block text-[10px] mb-1">Qualifications & Skills</span>
-                            <ul className="list-disc list-inside space-y-1 text-gray-300">
-                              {job.qualifications.map((qual, idx) => (
-                                <li key={idx}>{qual}</li>
+                          <div className="space-y-1.5">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-secondary">Qualifications & Profile</span>
+                            <ul className="list-disc list-inside space-y-1 text-gray-300 pl-1">
+                              {job.qualifications.map((q, i) => (
+                                <li key={i}>{q}</li>
                               ))}
                             </ul>
                           </div>
                         )}
 
-                        <div className="pt-2 flex flex-wrap justify-between items-center gap-3 border-t border-white/10">
+                        {/* Bottom Actions inside Card */}
+                        <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-white/10">
                           <span className="text-gray-400 text-[11px]">Direct Candidate Screening • Zero Automation Dumps</span>
                           <div className="flex items-center gap-2">
                             <button
@@ -535,7 +636,7 @@ export default function CandidateHub() {
                             </button>
                             <button
                               onClick={() => handleApplyClick(job.title)}
-                              className="px-4 py-2 text-xs font-bold bg-secondary text-black rounded-lg hover:bg-secondary/80 transition cursor-pointer"
+                              className="px-4 py-2 text-xs font-bold bg-secondary text-black rounded-lg hover:bg-secondary/80 transition cursor-pointer shadow-md shadow-secondary/20"
                             >
                               Apply for {job.title}
                             </button>
@@ -617,5 +718,19 @@ export default function CandidateHub() {
 
       <FloatingBookCallButton onOpenBookCall={() => setIsBookCallModalOpen(true)} />
     </div>
+  );
+}
+
+export default function JobsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-darkBody flex items-center justify-center text-gray-400 text-sm">
+          Loading positions...
+        </div>
+      }
+    >
+      <JobsBoard />
+    </Suspense>
   );
 }

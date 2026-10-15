@@ -53,22 +53,22 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Candidate Hub */}
+          {/* Jobs & Careers */}
           <div className="space-y-3">
-            <h4 className="text-white font-semibold text-sm tracking-wider uppercase">Candidate Hub</h4>
+            <h4 className="text-white font-semibold text-sm tracking-wider uppercase">Jobs & Careers</h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/candidate-hub#jobs" className="hover:text-secondary transition-colors">
+                <Link href="/jobs#jobs" className="hover:text-secondary transition-colors">
                   Active Opportunities
                 </Link>
               </li>
               <li>
-                <Link href="/candidate-hub#fast-track" className="hover:text-secondary transition-colors">
+                <Link href="/jobs#fast-track" className="hover:text-secondary transition-colors">
                   Fast-Track Profile Drop
                 </Link>
               </li>
               <li>
-                <Link href="/candidate-hub#contractor-protocol" className="hover:text-secondary transition-colors">
+                <Link href="/jobs#contractor-protocol" className="hover:text-secondary transition-colors">
                   Contractor Protocol
                 </Link>
               </li>

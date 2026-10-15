@@ -50,12 +50,12 @@ export default function Navbar({ onOpenClientForm, onOpenCandidateForm, onOpenBo
             Client Solutions
           </Link>
           <Link
-            href="/candidate-hub"
+            href="/jobs"
             className={`transition-colors hover:text-secondary ${
-              isActive('/candidate-hub') ? 'text-secondary font-bold' : 'text-gray-300'
+              isActive('/jobs') ? 'text-secondary font-bold' : 'text-gray-300'
             }`}
           >
-            Candidate Hub
+            Jobs
           </Link>
           <Link
             href="/about"
@@ -136,11 +136,11 @@ export default function Navbar({ onOpenClientForm, onOpenCandidateForm, onOpenBo
             Client Solutions
           </Link>
           <Link
-            href="/candidate-hub"
+            href="/jobs"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-base font-medium text-gray-200 hover:text-secondary"
           >
-            Candidate Hub
+            Jobs
           </Link>
           <Link
             href="/about"

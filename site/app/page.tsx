@@ -75,7 +75,7 @@ export default function Home() {
                     Request Talent - Build Your Team
                   </button>
                   <Link
-                    href="/candidate-hub"
+                    href="/jobs"
                     className="px-6 py-3.5 border border-white/20 text-gray-200 font-bold rounded-xl hover:border-secondary hover:text-secondary hover:bg-secondary/10 transition text-center text-sm cursor-pointer"
                   >
                     Join Our Talent Network
@@ -187,10 +187,10 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-4 pt-4">
                     <Link
-                      href="/candidate-hub"
+                      href="/jobs"
                       className="inline-flex items-center gap-2 text-sm font-bold text-secondary hover:text-white transition cursor-pointer"
                     >
-                      View Open Roles & Candidate Hub →
+                      View Open Jobs & Careers →
                     </Link>
                   </div>
                 </div>
