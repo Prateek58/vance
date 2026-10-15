@@ -354,11 +354,11 @@ function JobsBoard() {
         <div className="sticky top-16 sm:top-20 z-40 bg-black/95 backdrop-blur-md border-b border-secondary/40 px-4 py-3 shadow-2xl animate-fade-in">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2.5">
-              <span className="px-2.5 py-1 rounded bg-secondary text-black font-extrabold text-[10px] uppercase tracking-wider shrink-0">
-                Direct Link
+              <span className="px-2 py-0.5 rounded bg-secondary text-black font-bold text-[10px] uppercase tracking-wider shrink-0">
+                Selected
               </span>
               <span className="text-gray-200">
-                You are viewing: <strong className="text-secondary font-bold">{highlightedJob.title}</strong>{' '}
+                Viewing: <strong className="text-secondary font-semibold">{highlightedJob.title}</strong>{' '}
                 <span className="text-gray-400">({highlightedJob.location} • {highlightedJob.type})</span>
               </span>
             </div>
@@ -373,7 +373,7 @@ function JobsBoard() {
                 onClick={clearSelection}
                 className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs transition cursor-pointer"
               >
-                Browse All Positions
+                View all positions
               </button>
             </div>
           </div>
@@ -509,15 +509,14 @@ function JobsBoard() {
                     {/* Highlighted Banner Inside Card */}
                     {isTargetHighlight && (
                       <div className="flex items-center justify-between pb-3 border-b border-secondary/20 text-xs">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/20 text-secondary border border-secondary/40 font-bold">
-                          <span>🎯</span>
-                          <span>Shared Role Linked Directly</span>
+                        <span className="px-2.5 py-0.5 rounded-full bg-secondary/15 text-secondary border border-secondary/30 text-[11px] font-semibold tracking-wide">
+                          Selected Role
                         </span>
                         <button
                           onClick={clearSelection}
                           className="text-gray-400 hover:text-white underline cursor-pointer text-[11px]"
                         >
-                          Clear Selection
+                          View all roles
                         </button>
                       </div>
                     )}
