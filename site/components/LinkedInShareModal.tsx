@@ -8,13 +8,20 @@ export interface JobPostingForShare {
   category: string;
   location: string;
   type: string;
-  rate: string;
-  techStack: string[];
-  summary: string;
-  impact: string;
-  responsibilities: string[];
-  qualifications?: string[];
+  workplaceType?: string;
+  workAuthorization?: string;
+  taxTerm?: string;
+  salaryRange?: string;
+  techStack?: string[];
+  notes?: string;
+  jobDetails?: string;
+  // Legacy compatibility fields
+  rate?: string;
   eligibility?: string;
+  summary?: string;
+  impact?: string;
+  responsibilities?: string[];
+  qualifications?: string[];
 }
 
 interface LinkedInShareModalProps {
@@ -39,25 +46,26 @@ export default function LinkedInShareModal({ isOpen, onClose, job }: LinkedInSha
         '#Hiring',
         '#TechJobs',
         '#VanceIT',
-        `#${job.category.replace(/[^a-zA-Z0-9]/g, '')}`,
+        `#${(job.category || 'Tech').replace(/[^a-zA-Z0-9]/g, '')}`,
         '#CareerOpportunity',
-        ...job.techStack.slice(0, 3).map(t => `#${t.replace(/[^a-zA-Z0-9]/g, '')}`)
+        ...(job.techStack ? job.techStack.slice(0, 3).map(t => `#${t.replace(/[^a-zA-Z0-9]/g, '')}`) : [])
       ].join(' ');
 
-      const eligibilityLine = job.eligibility ? `\n🛡️ Eligibility: ${job.eligibility}` : '';
+      const auth = job.workAuthorization || job.eligibility;
+      const eligibilityLine = auth ? `\n🛡️ Work Authorization: ${auth}` : '';
+      const comp = job.salaryRange || job.rate;
+      const compLine = comp ? ` | Comp: ${comp}` : '';
+      const tax = job.taxTerm ? ` | Tax: ${job.taxTerm}` : '';
 
-      const defaultText = `🚀 We are looking for a ${job.title}!
+      const summaryText = (job.notes || job.summary || '').replace(/[#*`_]/g, '').trim();
+      const summarySection = summaryText ? `\n📝 Overview:\n${summaryText}\n` : '';
+
+      const defaultText = `🚀 We are hiring: ${job.title}! (Job ID: ${job.id})
 
 📍 Location: ${job.location}
-💼 Model: ${job.type} | Rate: ${job.rate}${eligibilityLine}
-⚡ Tech Stack: ${job.techStack.join(', ')}
-
-📝 Role Summary:
-${job.summary}
-
-📌 Key Impact & Focus:
-${job.impact}
-
+💼 Type: ${job.type}${compLine}${tax}${eligibilityLine}
+⚡ Tech Stack: ${job.techStack?.join(', ') || 'N/A'}
+${summarySection}
 Apply directly or check full role details here:
 ${fullUrl}
 
@@ -148,14 +156,18 @@ ${hashtags}`;
                 {job.type} • {job.location}
               </span>
             </div>
-            <div className="text-gray-300 text-[11px]">{job.rate}</div>
-            <div className="flex flex-wrap gap-1 pt-1">
-              {job.techStack.map((tech, i) => (
-                <span key={i} className="px-1.5 py-0.5 rounded bg-white/5 text-gray-300 border border-white/10 text-[10px]">
-                  {tech}
-                </span>
-              ))}
-            </div>
+            {(job.salaryRange || job.rate) && (
+              <div className="text-gray-300 text-[11px]">{job.salaryRange || job.rate}</div>
+            )}
+            {job.techStack && job.techStack.length > 0 && (
+              <div className="flex flex-wrap gap-1 pt-1">
+                {job.techStack.map((tech, i) => (
+                  <span key={i} className="px-1.5 py-0.5 rounded bg-white/5 text-gray-300 border border-white/10 text-[10px]">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Editable Post Draft */}

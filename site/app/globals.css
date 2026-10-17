@@ -80,3 +80,99 @@ a, button, [role="button"], select, label[for] {
   transform: translateY(0) translateX(0) scale(1) !important;
 }
 
+/* Job Post Markdown Typography */
+.job-markdown {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.job-markdown h1,
+.job-markdown h2,
+.job-markdown h3,
+.job-markdown h4 {
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.job-markdown h1 {
+  font-size: 1.125rem;
+}
+
+.job-markdown h2 {
+  font-size: 1rem;
+}
+
+.job-markdown h3 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #00E7AF;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.job-markdown h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #00D2F1;
+}
+
+.job-markdown p {
+  color: #d1d5db;
+  margin-bottom: 0.625rem;
+}
+
+.job-markdown ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.job-markdown ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.job-markdown li {
+  color: #e5e7eb;
+  margin-bottom: 0.35rem;
+  padding-left: 0.25rem;
+}
+
+.job-markdown li::marker {
+  color: #00E7AF;
+}
+
+.job-markdown strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.job-markdown a {
+  color: #00D2F1;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.job-markdown code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.85em;
+  color: #00E7AF;
+}
+
+.job-markdown blockquote {
+  border-left: 3px solid #00E7AF;
+  padding-left: 0.75rem;
+  margin-left: 0;
+  margin-bottom: 0.75rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+
