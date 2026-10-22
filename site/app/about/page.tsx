@@ -35,7 +35,7 @@ export default function AboutUs() {
               </span>
             </h1>
             <p className="text-gray-300 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
-              Vance IT Solutions LLC operates as a high-velocity boutique partner, pairing human recruitment intuition with next-generation AI talent sourcing.
+              Vance IT Solutions LLC operates as a high-velocity  boutique partner, pairing human recruitment intuition with next-generation AI talent sourcing.
             </p>
           </div>
         </section>
